@@ -1,0 +1,15 @@
+
+
+
+1.进入虚拟环境
+source  venv/bin/activate
+
+2.启用服务
+python manage.py runserver
+
+3.重新生成数据库
+python manage.py db init
+python manage.py db migrate
+python manage.py db upgrade
+关于数据库迁移,表生成更多信息查看: http://www.linuxhub.org/?p=2501
+
