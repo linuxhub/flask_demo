@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}Flasky{% endblock %}
+
+{% block page_content %}
+<div class="page-header">
+
+
+ <h1> Hello Word </h1>
+
+<div class="alert alert-info" role="alert">
+<h4><i class="fa fa-clock-o"></i> 当前时间: {{  current_time }}</h4>
+<h4><i class="fa fa-eye"></i> 访问IP信息: {{ ip }} </h4>
+<h4><i class="fa fa-truck"></i> 浏览器信息:  {{ user_agent }}</h4>
+</div>
+
+
+
+</div>
+
+
+{% endblock %}

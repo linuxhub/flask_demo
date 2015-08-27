@@ -1,0 +1,15 @@
+{%  extends  "base.html" %}
+
+{% block title %} 404 {% endblock %}
+
+{% block page_content %}
+<div class="page-header">
+
+    <br>
+<div class="alert alert-danger" role="alert">
+      <h3> <strong>404</strong> 页面不存在！</h3>  <a href="{{ url_for('main.index') }}" class="alert-link">我回首页,你慢慢找!</a>
+</div>
+</div>
+
+</div>
+{% endblock %}
