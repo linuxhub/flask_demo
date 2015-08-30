@@ -1,0 +1,33 @@
+
+
+
+1.进入虚拟环境
+source  venv/bin/activate
+
+2.启用服务
+python manage.py runserver
+
+3.重新生成数据库
+python manage.py db init
+python manage.py db migrate
+python manage.py db upgrade
+关于数据库迁移,表生成更多信息查看: http://www.linuxhub.org/?p=2501
+
+
+3.创建默认用户,如果用户存在则会删除重新创建
+python manage.py shell
+Manual.create_default_user_admin() #创建默认管理员用户
+
+默认管理员用户密码:
+-------------------
+ email: root@linuxhub.org
+ password: root
+----------------------
+可以通过这个管理员账户来创建新的用户
+
+
+
+
+
+
+

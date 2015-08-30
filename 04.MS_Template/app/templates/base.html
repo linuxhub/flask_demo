@@ -1,0 +1,91 @@
+{%  extends "bootstrap/base.html" %}
+{% block title %} Flasky {% endblock %}
+
+
+
+{% block head %}
+{{ super() }}
+
+<!-- 加载 静态文件 favicon.ico    -->
+<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+<link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon" >
+
+<!-- 加载本地字体 -->
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='font-awesome/css/font-awesome.min.css') }}">
+
+<!-- 加载本地CSS样式-->
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+
+
+{% endblock %}
+
+
+
+{% block navbar %}
+
+<div class="navbar navbar-inverse" role="navigation">
+              <div class="container">
+                            <div class="navbar-header">
+                                          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                                                        <span class="sr-only"> Toggle navigation </span>
+                                                        <span class="icon-bar"></span>
+                                                        <span class="icon-bar"></span>			
+                                                        <span class="icon-bar"></span>
+                                          </button>
+                                          <!-- main.index #蓝本名.index -->
+                                          <a  class="navbar-brand" href="{{ url_for('main.index') }}">Flasky</a>
+                            </div>
+                            <div class="navbar-collapse collapse">
+                                          <ul class="nav navbar-nav">
+                                                        <li><a href="{{ url_for('main.index') }}">Home</a></li>
+                                          </ul>
+
+                                        <ul class="nav navbar-nav navbar-right"> <!-- 右边 -->
+                                            <li><a href="{{ url_for('auth.user', username=current_user.username) }}">用户: {{ current_user.username }} </a></li>
+                                            <li><a href="#">IP: {{ current_user.last_login_ip}} </a></li>
+                                            <li><a href="{{ url_for('auth.logout') }}">退出</a></li>
+                                        </ul>
+
+                            </div>
+
+
+
+              </div>
+</div>
+{% endblock %}
+
+
+{% block content %}
+
+
+<div class="container">
+              {% for message in get_flashed_messages() %}
+              <div class="alert alert-warning">
+                   <button type="button" class="close" data-dismiss="alert">&times;</button>
+                   {{ message }}
+              </div>
+              {% endfor %}
+              {% block page_content %} {%  endblock %}
+</div>
+
+
+<footer>
+ <div class="row footer-top">
+    <p> <i class="fa fa-leaf"></i> LinuxHub </p>
+ </div>
+
+<div class="row footer-bottom">
+          <ul class="list-inline text-center">
+            <li><a href="http://www.linuxhub.org" target="_blank">泽泽运维</a></li><li>zepinglai@gmail.com</li>
+          </ul>
+        </div>
+
+</footer>
+
+{% endblock %}
+
+
+{% block script %}
+{{ super() }}
+{{ moment.include_moment() }}
+{% endblock %}
