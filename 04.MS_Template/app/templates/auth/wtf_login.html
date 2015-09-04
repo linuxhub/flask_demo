@@ -1,0 +1,53 @@
+{% macro form_field(field) %}
+  {# 为空的时候提示 #}
+  {% if field.flags.required and not required in kwargs %}
+  {% set kwargs = dict(required=True, **kwargs) %}
+  {% endif %}
+
+
+  {% if field.widget.input_type == 'text' %}
+  <!-- 文件控件 -->
+          <div class="input-group">
+            <span class="input-group-addon">
+              <i class="fa fa-2x fa-user"></i>
+            </span>
+                {{field(class="form-control input-lg",placeholder="邮箱",**kwargs)|safe}} 
+          </div>
+        </div>
+
+
+ {% elif field.widget.input_type == 'password' %}
+ <!-- 密码控件 -->
+
+        <div class="form-group">
+          <div class="input-group">
+            <span class="input-group-addon">
+              <i class="fa fa-2x fa-lock"></i>
+            </span>
+            {{field(class="form-control input-lg",placeholder="密码",**kwargs)|safe}} 
+          </div>
+        </div>
+
+
+{% elif field.widget.input_type == 'submit' %}
+<!-- 按钮控件 -->
+        <div class="form-group">
+           {{field(class="btn btn-block",**kwargs)|safe}} 
+        </div>
+{% endif %}
+{% endmacro %}
+
+
+{# 表单 入口 #}
+{% macro quick_form(form) %}
+<form action="" method="post"  class="form-horizontal" role="form" >
+<div class="form-group">
+{{ form.hidden_tag() }}
+{% for field in form %}
+   {% if not bootstrap_is_hidden_field(field) %}
+   {{ form_field(field) }}
+   {% endif %}
+{% endfor %}
+</div>
+</form>
+{%- endmacro %}

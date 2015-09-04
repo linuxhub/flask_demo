@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+{% import "_macros.html" as macros %}
+
+{% block title %} 查看用户列表-LinuxHub {% endblock %}
+
+{% block page_content %}
+
+
+<script language="javascript">
+function del_user(uid)
+{
+  $('#user_del').attr('href','/auth/user_del/'+uid);
+  $("#myModal").modal('show');
+}
+</script>
+
+
+<!-- Modal 模态框 -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel"> 删除用户 </h4>
+      </div>
+      <div class="modal-body">
+       <p>确定删除该用户? </p>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-default" data-dismiss="modal">取消</a>
+        <a id="user_del" class="btn btn-primary"  >确认</a> <!-- 跳转 -->
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="ze_table">
+<table  class="table table-bordered">
+  <caption>后台用户管理中心</caption>
+  <thead>
+    <tr>
+      <th>UID</th>
+      <th>用户名称</th>
+      <th>登录邮箱</th>
+      <th>是否管理员</th>
+      <th>最后登录访问地址</th>
+      <th>最后访问日期时间</th>
+      <th>管理</th>
+
+    </tr>
+  </thead>
+  <tbody>
+
+{% for user in user_list %}
+<tr>
+<td> {{  user.id }}</td>
+<td> {{  user.username }}</td>
+<td> {{  user.email }}</td>
+
+<td>
+{% if user.is_admin %}
+Yes
+{% else %}
+No
+{% endif %}
+</td>
+<td> {{ user.last_login_ip }} </td>
+<td> {{ user.last_seen }} </td>
+
+<td>
+ <a class="label label-success" href="{{ url_for('auth.user_add') }}">添加</a>
+&nbsp;&nbsp;
+<a class="label label-warning" href="{{ url_for('auth.user_pwd_edit', id=user.id ) }}"> 修改密码 </a>
+&nbsp;&nbsp;
+<a class="label label-danger" onclick="del_user({{ user.id }})" data-toggle="modal" > 删除用户</a>
+</td>
+</tr>
+
+
+{% endfor %}
+
+</tbody>
+</table>
+</div>
+
+
+{% if pagination %}
+<div class="ze_paging">
+
+   {{ macros.pagination_widget(pagination, '.user_manage', fragment="#user_list", id=user_list[0].id) }}
+
+</div>
+{% endif %}
+
+
+{% endblock %}
